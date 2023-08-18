@@ -36,19 +36,21 @@ function RedirectPage() {
             });
             const credentials = await accessCredentials.json();
             console.log(credentials);
-            // let accessToken = credentials.access_token;
-            // console.log(accessToken);
-            // console.log(credentials);
-            // const activities = await fetch('https://www.strava.com/api/v3/athlete/activities?', {
-            //     method: 'GET',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'Authorization': 'Bearer ' + accessToken,
-            //     }
-            // });
-            // const activitiesData = await activities.json();
-            // console.log('wadduuuup');
-            // console.log(activitiesData);
+            let accessToken = credentials.access_token;
+            console.log(accessToken);
+            const activities = await fetch(
+                "https://www.strava.com/api/v3/athlete/activities?per_page=3",
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: "Bearer " + accessToken,
+                    },
+                }
+            );
+            const activitiesData = await activities.json();
+            console.log('wadduuuup');
+            console.log(activitiesData);
         }
         tokenStuff(code);
         // TODO: Use the access token to get the user's activities

@@ -33,13 +33,13 @@ function RedirectPage() {
 
             // Get the user's activities
             // NOTE! Ideally we would limit this to only get the most recent activity.
-            const activitiesData = await stravaCall(
+            const activitiesList = await stravaCall(
                 "https://www.strava.com/api/v3/athlete/activities?per_page=3"
             );
 
             // Get the first activity result (should be the firelane ride, doomed if not)
             const activity = await stravaCall(
-                `https://www.strava.com/api/v3/activities/${activitiesData[1].id}`
+                `https://www.strava.com/api/v3/activities/${activitiesList[1].id}`
             );
             
             // Get the segments from the activity that are descents
@@ -48,8 +48,8 @@ function RedirectPage() {
             });
             
             // Pull numbers out of the segment names and add them up
-            const score = descents.reduce((total, descent) => {
-                let chunk = descent.name.match(/[1-9]|1[0-9]/)[0];
+            const score = descents.reduce((total, segment) => {
+                let chunk = segment.name.match(/[1-9]|1[0-9]/)[0];
                 return total + parseInt(chunk);
             }, 0);
             

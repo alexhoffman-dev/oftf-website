@@ -1,10 +1,13 @@
 import { React, useEffect, useState } from "react";
 import logo from "./assets/oftf-logo-white.png";
 import background from "./assets/ferns.png";
+import "./App.css";
 
 function RedirectPage() {
+    const [score, setScore] = useState(0);
+    const [calculating, setCalculating] = useState(true);
     useEffect(() => {
-        // TODO: Get the code from the URL
+        // Get the code from the URL
         let code = null;
         let urlStuff = window.location.href.split("&");
         if (urlStuff.length > 1) {
@@ -16,8 +19,8 @@ function RedirectPage() {
                 console.log(code);
             }
         }
-        // TODO: Use the code to get the access token
-        const tokenStuff = async (code) => {
+        const scoreRide = async (code) => {
+            // Use the code to get the access token
             console.log(process.env.REACT_APP_CLIENT_ID);
             console.log(process.env.REACT_APP_CLIENT_SECRET);
             console.log(code);
@@ -49,18 +52,45 @@ function RedirectPage() {
                 }
             );
             const activitiesData = await activities.json();
-            console.log('wadduuuup');
             console.log(activitiesData);
+            // TODO: Get the activity data
+            const activityData = await fetch("https://www.strava.com/api/v3/activities/" + activitiesData[1].id, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + accessToken,
+                },
+            });
+            const activity = await activityData.json();
+            console.log(activity);
+            const descents = activity.segment_efforts.filter((segment) => {
+                return segment.name.match(/descent|Descent/)
+            });
+            console.log(descents);
+            const score = descents.reduce((total, descent) => {
+                let chunk = descent.name.match(/[1-9]|1[0-9]/)[0];
+                console.log(chunk);
+                return total + parseInt(chunk);
+            }, 0);
+            console.log(score);
+            setScore(score);
+            setCalculating(false);
         }
-        tokenStuff(code);
-        // TODO: Use the access token to get the user's activities
-        // TODO: Use the activities to calculate the score
+        scoreRide(code);
     }, []);
     return (
         <div className="app-container">
-            
-            <div className="button-container">
-                <div>Calculating your score</div>
+            <div className="background-image">
+                {calculating ? (
+                    <div className="button-container">
+                        <div className="score-label">Calculating Score</div>
+                    </div>
+                ) : (
+                    <div className="button-container">
+                        <div className="score">{score}</div>
+                        <div className="score-label">Your Score</div>
+                    </div>
+                )}
             </div>
         </div>
     );

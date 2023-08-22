@@ -16,7 +16,6 @@ function RedirectPage() {
             });
             if (code) {
                 code = code.split("=")[1];
-                console.log(code);
             }
         }
 

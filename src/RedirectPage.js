@@ -49,6 +49,7 @@ function RedirectPage() {
             
             // Pull numbers out of the segment names and add them up
             const score = descents.reduce((total, segment) => {
+                // Right now this only works up to the number 19
                 let chunk = segment.name.match(/[1-9]|1[0-9]/)[0];
                 return total + parseInt(chunk);
             }, 0);

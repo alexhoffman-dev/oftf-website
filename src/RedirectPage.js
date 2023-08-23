@@ -107,8 +107,6 @@ function RedirectPage() {
             let newScore = 0;
             SCORING_RUBRIC.forEach((segment) => {
                 if (segment.requirement === "one") {
-                    console.log(typeof segment.ids[0])
-                    console.log(typeof listOfSegmentIDs[0])
                     if (segment.ids.some((id) => listOfSegmentIDs.includes(parseInt(id)))) {
                         newScore += segment.score;
                     }

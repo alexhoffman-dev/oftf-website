@@ -2,15 +2,59 @@ import { React, useEffect, useState } from "react";
 import "./App.css";
 import { stravaCall, getAccessTokenFromCode } from "./services/stravaAPI.js";
 
-const SCORING_RUBRIC = {
-    '9525104' : 2,
-    '3700363' : 5, 
-    '1767027' : 5,
-    '9525093' : 6.66,
-    '1388529' : 7,
-    '9454289' : 10,
-    '9767475' : 11,
-}
+// const SCORIsdfNG_RUBRIC = {
+//     // 9525104: 2,
+//     // 3700363: 5,
+//     // 1767027: 5,
+//     // 9525093: 6.66,
+//     // 1388529: 7,
+//     // 9454289: 10,
+//     // 9767475: 11,
+// };
+
+const SCORING_RUBRIC = [
+    {
+        ids: ["9767475"],
+        score: 11,
+        name: "Firelane 1 (Complete)",
+        requirement: "one",
+    },
+    {
+        ids: ["9454289"],
+        score: 10,
+        name: "Firelane 10",
+        requirement: "one",
+    },
+    {
+        ids: ["1388529"],
+        score: 7,
+        name: "Firelane 7",
+        requirement: "one",
+    },
+    {
+        ids: ["9525093"],
+        score: 6.66,
+        name: "Firelane 666",
+        requirement: "one",
+    },
+    {
+        ids: ["3700363", "1767027"],
+        score: 5,
+        name: "Firelane 5",
+        requirement: "one",
+    },
+    {
+        ids: ["9525104"],
+        score: 2,
+        name: "Firelane 2",
+        requirement: "one",
+    },
+];
+
+
+// User bring big list of segments
+// We have rubric
+// 
 
 function RedirectPage() {
     const [score, setScore] = useState(0);
@@ -55,20 +99,29 @@ function RedirectPage() {
                 `https://www.strava.com/api/v3/activities/${activitiesList[0].id}`
             );
             
-            // Get the segments from the activity that are descents
-            const descents = activity.segment_efforts.filter((segment) => {
-                return segment.name.match(/descent|Descent/)
+            const listOfSegmentIDs = []
+            activity.segment_efforts.forEach((segment) => {
+                listOfSegmentIDs.push(segment.segment.id);
+            });
+
+            let newScore = 0;
+            SCORING_RUBRIC.forEach((segment) => {
+                if (segment.requirement === "one") {
+                    console.log(typeof segment.ids[0])
+                    console.log(typeof listOfSegmentIDs[0])
+                    if (segment.ids.some((id) => listOfSegmentIDs.includes(parseInt(id)))) {
+                        newScore += segment.score;
+                    }
+                } else if (segment.requirement === "all") {
+                    if (segment.ids.every((id) => listOfSegmentIDs.includes(id))) {
+                        newScore += segment.score;
+                    }
+                }
             });
             
-            // Pull numbers out of the segment names and add them up
-            const score = descents.reduce((total, segment) => {
-                // Right now this only works up to the number 19
-                let chunk = segment.name.match(/[1-9]|1[0-9]/)[0];
-                return total + parseInt(chunk);
-            }, 0);
-            
             // Set the score and stop calculating
-            setScore(score);
+            // setScore(score);
+            setScore(newScore);
             setCalculating(false);
         }
         scoreRide(code);

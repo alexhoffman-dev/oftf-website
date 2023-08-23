@@ -5,6 +5,19 @@ import { stravaCall, getAccessTokenFromCode } from "./services/stravaAPI.js";
 function RedirectPage() {
     const [score, setScore] = useState(0);
     const [calculating, setCalculating] = useState(true);
+    // Scoring Rubric has the following key
+    // segment ID : points worth 
+    const scoringRubric = {
+        '9767475' : 11,
+        '9525104' : 2,
+        '9525093' : 6.66,
+        '3700363' : 5, 
+        '1767027' : 5,
+        '1388529' : 7,
+        '9454289' : 10, 
+
+    }
+
     useEffect(() => {
         // Get the code from the URL
         // NOTE! This is dangerous and error prone.
@@ -23,6 +36,7 @@ function RedirectPage() {
         if (!code) {
             window.location = "/";
         }
+        debugger;
 
         const scoreRide = async (code) => {
             // Use the code to get the access token

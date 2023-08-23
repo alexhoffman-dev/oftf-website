@@ -1,4 +1,5 @@
 export async function stravaCall(url, method = "GET", body = null) {
+    console.log(localStorage.getItem("access_token")); 
     let accessToken = localStorage.getItem("access_token");
     const queryObject = {
         method: method,

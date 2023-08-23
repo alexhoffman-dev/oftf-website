@@ -31,7 +31,7 @@ export async function getAccessTokenFromCode(code) {
     );
 
     // If there's an error, redirect back to the homepage
-    if(data.errors) {
+    if (data.errors) {
         window.location = "/";
     }
 

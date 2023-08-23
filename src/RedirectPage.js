@@ -2,21 +2,21 @@ import { React, useEffect, useState } from "react";
 import "./App.css";
 import { stravaCall, getAccessTokenFromCode } from "./services/stravaAPI.js";
 
+const SCORING_RUBRIC = {
+    '9525104' : 2,
+    '3700363' : 5, 
+    '1767027' : 5,
+    '9525093' : 6.66,
+    '1388529' : 7,
+    '9454289' : 10,
+    '9767475' : 11,
+}
+
 function RedirectPage() {
     const [score, setScore] = useState(0);
     const [calculating, setCalculating] = useState(true);
     // Scoring Rubric has the following key
     // segment ID : points worth 
-    const scoringRubric = {
-        '9767475' : 11,
-        '9525104' : 2,
-        '9525093' : 6.66,
-        '3700363' : 5, 
-        '1767027' : 5,
-        '1388529' : 7,
-        '9454289' : 10, 
-
-    }
 
     useEffect(() => {
         // Get the code from the URL
@@ -36,7 +36,6 @@ function RedirectPage() {
         if (!code) {
             window.location = "/";
         }
-        debugger;
 
         const scoreRide = async (code) => {
             // Use the code to get the access token
@@ -50,10 +49,10 @@ function RedirectPage() {
             const activitiesList = await stravaCall(
                 "https://www.strava.com/api/v3/athlete/activities?per_page=3"
             );
-
+            
             // Get the first activity result (should be the firelane ride, doomed if not)
             const activity = await stravaCall(
-                `https://www.strava.com/api/v3/activities/${activitiesList[1].id}`
+                `https://www.strava.com/api/v3/activities/${activitiesList[0].id}`
             );
             
             // Get the segments from the activity that are descents

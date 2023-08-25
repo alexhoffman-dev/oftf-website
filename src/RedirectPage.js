@@ -149,7 +149,7 @@ function RedirectPage() {
             
             // Get the first activity result (should be the firelane ride, doomed if not)
             const activity = await stravaCall(
-                `https://www.strava.com/api/v3/activities/${activitiesList[3].id}`
+                `https://www.strava.com/api/v3/activities/${activitiesList[0].id}`
             );
             const listOfSegmentIDs = [];
             activity.segment_efforts.forEach((segment) => {

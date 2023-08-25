@@ -2,16 +2,6 @@ import { React, useEffect, useState } from "react";
 import "./App.css";
 import { stravaCall, getAccessTokenFromCode } from "./services/stravaAPI.js";
 
-// const SCORIsdfNG_RUBRIC = {
-//     // 9525104: 2,
-//     // 3700363: 5,
-//     // 1767027: 5,
-//     // 9525093: 6.66,
-//     // 1388529: 7,
-//     // 9454289: 10,
-//     // 9767475: 11,
-// };
-
 const SCORING_RUBRIC = [
     {
         ids: ["9767475", "9439436"],
@@ -198,8 +188,8 @@ function RedirectPage() {
                         <div className="score-label">Calculating Score</div>
                     </div>
                 ) : (
-                    <div className="button-container">
-                        <div className='completed-lanes-title'>ur lanes</div>
+                    <div className="score-container">
+                        <div className='completed-lanes-title'>COMPLETED LANES</div>
                         {
                             completedLanes.map((lane) => {
                                 return <div className='completed-lanes'>{lane}</div>

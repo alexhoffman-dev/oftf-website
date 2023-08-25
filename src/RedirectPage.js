@@ -14,14 +14,21 @@ import { stravaCall, getAccessTokenFromCode } from "./services/stravaAPI.js";
 
 const SCORING_RUBRIC = [
     {
-        ids: ["9767475"],
+        ids: ["9767475", "9439436"],
         score: 11,
         name: "Firelane 1 (Complete)",
         requirement: "one",
+        eliminates: ["Firelane 1 (Top & Bottm)", "Firelane 1 (top)", "Firelane 1 (bottom)"]
     },
-    // eliminates the next 2 so that people don't get 14 pts 
     {
-        ids: ['1303836'],
+        ids: ['1583715', '1303836'],
+        score: 11,
+        name: "Firelane 1 (Top & Bottm)",
+        requirement: "all",
+        eliminates: ["Firelane 1 (top)", "Firelane 1 (bottom)"]
+    },
+    {
+        ids: ['1583715'],
         score: 1,
         name: "Firelane 1 (top)",
         requirement: "one",
@@ -91,30 +98,10 @@ const SCORING_RUBRIC = [
     }
 ];
 
-
-// User bring big list of segments
-// We have rubric
-// 
-
 function RedirectPage() {
     const [completedLanes, setCompletedLanes] = useState([]);
     const [score, setScore] = useState(0);
     const [calculating, setCalculating] = useState(true);
-    // Scoring Rubric has the following key
-    // segment ID : points worth 
-    // const scoringRubric = {
-    //     '9767475' : 11,
-    //     '9525104' : 2,
-    //     '9525093' : 6.66,
-    //     '3700363' : 5, 
-    //     '1767027' : 5,
-    //     '1388529' : 7,
-    //     '9454289' & '29212760': 10, 
-    //     '1716206' & '5161726': 27,
-    //     '1583715' : 1 | '1303836' : 1
-
-
-    // }
 
     useEffect(() => {
         // Get the code from the URL
@@ -169,13 +156,26 @@ function RedirectPage() {
                     if (segment.ids.some((id) => listOfSegmentIDs.includes(parseInt(id)))) {
                         newScore += segment.score;
                         lanesList.push(segment.name);
+                        if (typeof segment.eliminates === 'object') {
+                            segment.eliminates.forEach((route) => {
+                                eliminatedRoutes.push(route)
+                            });
+                        };
                     }
                 } else if (segment.requirement === "all") {
                     if (segment.ids.every((id) => listOfSegmentIDs.includes(id))) {
                         newScore += segment.score;
                         lanesList.push(segment.name);
+                        debugger;
                         if (segment.eliminates) {
+                            if (typeof segment.eliminates === 'object') {
+                                segment.eliminates.forEach((route) => {
+                                    eliminatedRoutes.push(route)
+                                })
+                            } else {
                             eliminatedRoutes.push(...segment.eliminates);
+                            console.log(eliminatedRoutes); 
+                            };
                         }
                     }
                 }

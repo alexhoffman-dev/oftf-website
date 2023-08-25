@@ -3,7 +3,7 @@ import "./App.css";
 import logo from "./assets/oftf-logo-white.png";
 import background from "./assets/ferns.png";
 
-const redirectUrl = "https://earnest-kulfi-f81d08.netlify.app/redirect";
+const redirectUrl = "https://earnest-kulfi-f81d08.netlify.app/redirect/";
 //const redirectUrl = "http://localhost:3000/redirect/"; 
 
 const handleLogin = () => {

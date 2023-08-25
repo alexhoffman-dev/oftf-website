@@ -30,19 +30,13 @@ const SCORING_RUBRIC = [
         requirement: "one",
     },
     {
-        ids: ["9454289"],
-        score: 10,
-        name: "Firelane 10",
-        requirement: "one",
-    },
-    {
         ids: ["1388529"],
         score: 7,
         name: "Firelane 7",
         requirement: "one",
     },
     {
-        ids: ["9525093"],
+        ids: ["9525093", "9745846"],
         score: 6.66,
         name: "Firelane 666",
         requirement: "one",
@@ -87,11 +81,28 @@ const SCORING_RUBRIC = [
         requirement: "one",
     },
     {
-        ids: ['627889'],
-        //25185599 alternate Holman climb ID
+        ids: ['627889', '25185599'],
+        score: 3,
+        name: 'Holman Lane Climb',
+        requirement: "one",
+    },
+    {
+        ids: ['1319957', '769089'],
+        score: 3,
+        name: 'Upper Springville Climb',
+        requirement: "one",
+    },
+    {
+        ids: ['627889', '25185599'],
         name: 'Holman Lane Climb',
         requirement: "total",
+    },
+    {
+        ids: ['1319957', '769089'],
+        name: 'Upper Springville Climb',
+        requirement: "total",
     }
+
 ];
 
 function RedirectPage() {
@@ -99,6 +110,7 @@ function RedirectPage() {
     const [score, setScore] = useState(0);
     const [calculating, setCalculating] = useState(true);
     const [holmanClimbs, setHolmanClimbs] = useState(0); 
+    const [springvilleClimbs, setSpringvilleClimbs] = useState(0)
 
     useEffect(() => {
         // Get the code from the URL
@@ -163,7 +175,6 @@ function RedirectPage() {
                     if (segment.ids.every((id) => listOfSegmentIDs.includes(id))) {
                         newScore += segment.score;
                         lanesList.push(segment.name);
-                        debugger;
                         if (segment.eliminates) {
                             if (typeof segment.eliminates === 'object') {
                                 segment.eliminates.forEach((route) => {
@@ -176,14 +187,16 @@ function RedirectPage() {
                         }
                     }
                 } if (segment.requirement === "total") {
-                    debugger;
                     let count = 0; 
-                    for (const id of segment.ids) {
-                        if (listOfSegmentIDs.includes(id)) {
-                            count ++
-                        }
+                    // take of list of segments and filter with segment.id and count array length
+                    let climbEfforts = listOfSegmentIDs.filter((id) => segment.ids.includes(id.toString()));
+                    count = climbEfforts.length
+                    if (segment.name === 'Holman Lane Climb') {
+                        setHolmanClimbs(count); 
                     }
-                    setHolmanClimbs(count); 
+                    if (segment.name === 'Upper Springville Climb') {
+                        setSpringvilleClimbs(count);
+                    }
                 }
             });
             
@@ -212,6 +225,7 @@ function RedirectPage() {
                             })
                         }
                         <div className="holman-count"> Holman Lane Climbs x {holmanClimbs}</div>
+                        <div className="springville-count"> Upper Springville Lane Climbs x {springvilleClimbs}</div>
                         <div className="score">{score}</div>
                         <div className="score-label">Your Score</div>
                     </div>

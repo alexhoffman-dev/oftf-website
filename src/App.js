@@ -3,7 +3,7 @@ import "./App.css";
 import logo from "./assets/oftf-logo-white.png";
 import background from "./assets/ferns.png";
 
-const redirectUrl = "http://localhost:3000/redirect/";
+const redirectUrl = "https://ourfatherthefirelane.netlify.app/redirect/";
 
 const handleLogin = () => {
     window.location = `http://www.strava.com/oauth/authorize?client_id=110279&response_type=code&redirect_uri=${redirectUrl}&approval_prompt=force&scope=read,activity:read`;

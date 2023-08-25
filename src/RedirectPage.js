@@ -19,6 +19,7 @@ const SCORING_RUBRIC = [
         name: "Firelane 1 (Complete)",
         requirement: "one",
     },
+    // eliminates the next 2 so that people don't get 14 pts 
     {
         ids: ['1303836'],
         score: 1,

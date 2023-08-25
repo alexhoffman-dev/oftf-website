@@ -87,7 +87,7 @@ const SCORING_RUBRIC = [
         requirement: "one",
     },
     {
-        ids: ['1319957', '769089'],
+        ids: ['1319957', '769089', '28881292'],
         score: 3,
         name: 'Upper Springville Climb',
         requirement: "one",
@@ -98,7 +98,7 @@ const SCORING_RUBRIC = [
         requirement: "total",
     },
     {
-        ids: ['1319957', '769089'],
+        ids: ['1319957', '769089', '28881292'],
         name: 'Upper Springville Climb',
         requirement: "total",
     }

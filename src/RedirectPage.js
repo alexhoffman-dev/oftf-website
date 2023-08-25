@@ -85,6 +85,12 @@ const SCORING_RUBRIC = [
         score: 15,
         name: 'Firelane 15',
         requirement: "one",
+    },
+    {
+        ids: ['627889'],
+        //25185599 alternate Holman climb ID
+        name: 'Holman Lane Climb',
+        requirement: "total",
     }
 ];
 
@@ -92,6 +98,7 @@ function RedirectPage() {
     const [completedLanes, setCompletedLanes] = useState([]);
     const [score, setScore] = useState(0);
     const [calculating, setCalculating] = useState(true);
+    const [holmanClimbs, setHolmanClimbs] = useState(0); 
 
     useEffect(() => {
         // Get the code from the URL
@@ -152,7 +159,7 @@ function RedirectPage() {
                             });
                         };
                     }
-                } else if (segment.requirement === "all") {
+                } if (segment.requirement === "all") {
                     if (segment.ids.every((id) => listOfSegmentIDs.includes(id))) {
                         newScore += segment.score;
                         lanesList.push(segment.name);
@@ -168,6 +175,15 @@ function RedirectPage() {
                             };
                         }
                     }
+                } if (segment.requirement === "total") {
+                    debugger;
+                    let count = 0; 
+                    for (const id of segment.ids) {
+                        if (listOfSegmentIDs.includes(id)) {
+                            count ++
+                        }
+                    }
+                    setHolmanClimbs(count); 
                 }
             });
             
@@ -195,6 +211,7 @@ function RedirectPage() {
                                 return <div className='completed-lanes'>{lane}</div>
                             })
                         }
+                        <div className="holman-count"> Holman Lane Climbs x {holmanClimbs}</div>
                         <div className="score">{score}</div>
                         <div className="score-label">Your Score</div>
                     </div>

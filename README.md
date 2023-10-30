@@ -1,36 +1,66 @@
 # OFTF Bike Race Website
 
-Welcome to the OFTF Bike Race Website repository! This project is a web application built using React, npm, Adobe CSS tools, and Express. Its primary purpose is to host a website via Netlify, which can interpolate user data fetched from the Strava API to score their bicycle ride in the context of a grassroots bike race called OFTF (One for the Fun).
+Welcome to the **OFTF Bike Race Website** repository! This project is a React-based website developed for the OFTF (Our Father The Firelane) grassroots bike race. The website is designed to interpolate user data fetched from the Strava API to score participants' rides in the context of the OFTF race.
 
-## Table of Contents
-- [Project Overview](#project-overview)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
+## Features
 
-## Project Overview
+- **Strava Integration:** Fetches user data from the Strava API to provide accurate ride information.
+- **Scoring System:** Interpolates user data to calculate scores for participants based on predefined criteria.
+- **User-Friendly Interface:** Intuitive and responsive UI for a seamless user experience.
+- **Express Backend:** Utilizes Express.js for server-side operations and API requests.
+- **Adobe CSS Tools:** Leveraging Adobe CSS tools for enhanced design and visual appeal.
 
-The OFTF Bike Race Website is designed to provide participants of the OFTF bike race with an interactive platform to score and analyze their bicycle rides. Here are some key features of the project:
+## Technologies Used
 
-- **Strava Integration**: The website fetches user data from the Strava API, allowing participants to import and analyze their ride details.
-
-- **Scoring Algorithm**: The application uses a custom scoring algorithm to evaluate ride performance within the context of the OFTF race. Users can see their race scores and compare them with others.
-
-- **User-Friendly Interface**: The website offers a user-friendly interface for easy navigation and interaction.
-
-- **Deployment**: The website is hosted on Netlify, making it accessible to a wide audience of race participants.
-
-## Prerequisites
-
-Before you get started with this project, make sure you have the following prerequisites in place:
-
-- Node.js and npm installed on your development environment. You can download them from [nodejs.org](https://nodejs.org/).
+- **React:** A JavaScript library for building user interfaces.
+- **NPM:** The package manager for JavaScript and the world's largest software registry.
+- **Express.js:** A fast, unopinionated, minimalist web framework for Node.js.
+- **Adobe CSS Tools:** Creative tools and services for design and imaging.
 
 ## Installation
 
-1. Clone this repository to your local machine:
-   ```bash
-   git clone https://github.com/yourusername/of-bike-race-website.git
+To run this project locally, follow these steps:
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/your-username/oftf-website.git
+   ```
+
+2. Navigate to the project directory:
+   ```
+   cd oftf-website
+   ```
+
+3. Install dependencies using npm:
+   ```
+   npm install
+   ```
+
+4. Start the development server:
+   ```
+   npm start
+   ```
+
+   The website will be accessible at `http://localhost:3000`.
+
+## Deployment
+
+This project is hosted on Netlify, ensuring seamless deployment and hosting capabilities. Any changes pushed to the `main` branch will automatically trigger a new deployment on Netlify.
+
+## How to Contribute
+
+We welcome contributions from the community! To contribute to the project, follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix: `git checkout -b feature-name`
+3. Make your changes and commit them: `git commit -m 'Description of your changes'`
+4. Push the changes to your branch: `git push origin feature-name`
+5. Create a pull request detailing your changes.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE), meaning you can use, modify, and distribute the code for free.
+
+---
+
+Feel free to explore the code and contribute to make the OFTF Website even better! If you have any questions or issues, please don't hesitate to reach out. Happy coding! 🚴‍♂️🏁
